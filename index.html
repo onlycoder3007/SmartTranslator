@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SmartTranslate Pro | Elite v3.0</title>
+    <title>SmartTranslate Pro | Elite v5.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,68 +15,43 @@
         background-color: #010206;
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
-        font-family: 'Plus_Jakarta_Sans', sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
       }
       
-      @keyframes float {
-        0%, 100% { transform: translateY(0) scale(1); }
-        50% { transform: translateY(-20px) scale(1.05); }
-      }
-      
-      @keyframes neuralPulse {
-        0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
-        70% { box-shadow: 0 0 0 15px rgba(99, 102, 241, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
-      }
-
-      @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-      }
-
-      .noise {
+      /* Liquid Mesh Background */
+      .mesh-bg {
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: url('https://grainy-gradients.vercel.app/noise.svg');
-        opacity: 0.04;
-        pointer-events: none;
-        z-index: 100;
-        mix-blend-mode: overlay;
+        background: radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.15) 0px, transparent 50%),
+                    radial-gradient(at 100% 0%, rgba(192, 38, 211, 0.1) 0px, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(79, 70, 229, 0.1) 0px, transparent 50%),
+                    radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+        z-index: -1;
       }
 
+      @keyframes float {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-20px) scale(1.02); }
+      }
+
+      @keyframes reveal {
+        from { opacity: 0; clip-path: inset(0 100% 0 0); }
+        to { opacity: 1; clip-path: inset(0 0 0 0); }
+      }
+
+      .animate-reveal { animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       .glass-card {
-        background: rgba(255, 255, 255, 0.02);
-        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.01);
+        backdrop-filter: blur(24px);
         border: 1px solid rgba(255, 255, 255, 0.05);
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       }
-
       .glass-card:hover {
-        background: rgba(255, 255, 255, 0.04);
-        border-color: rgba(99, 102, 241, 0.3);
-        transform: translateY(-2px);
+        border-color: rgba(99, 102, 241, 0.4);
+        background: rgba(255, 255, 255, 0.02);
       }
-
-      .text-shimmer {
-        background: linear-gradient(90deg, #fff, #6366f1, #fff);
-        background-size: 200% auto;
-        color: transparent;
-        -webkit-background-clip: text;
-        animation: shimmer 3s linear infinite;
-      }
-
-      .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-      .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.2); border-radius: 10px; }
       
-      .stagger-1 { animation: fadeInUp 0.5s ease forwards; }
-      .stagger-2 { animation: fadeInUp 0.7s ease forwards; }
-      .stagger-3 { animation: fadeInUp 0.9s ease forwards; }
-
-      @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
-        to { opacity: 1; transform: translateY(0); filter: blur(0); }
-      }
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
     </style>
     <script type="importmap">
 {
@@ -92,7 +67,7 @@
 </script>
   </head>
   <body>
-    <div class="noise"></div>
+    <div class="mesh-bg"></div>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
